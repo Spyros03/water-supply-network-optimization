@@ -1,0 +1,1 @@
+optimized_diameters,66.0,55.4,79.2,96.8,79.2
