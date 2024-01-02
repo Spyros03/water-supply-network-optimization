@@ -1,6 +1,6 @@
 """
 This module contains classes that describe a simple water supply network in correlation with the EPANET_2.3 structs
-that is used for the hydraulic calculations
+that is used for the hydraulic calculations.
 """
 
 
