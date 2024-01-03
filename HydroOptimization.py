@@ -13,6 +13,7 @@ def fitness_function(ga_instance, solution, solution_idx) -> float:
     network = HydroNetwork(common.nodes, common.pipes)
     network.set_pipe_diameters(solution_list)
     network.solve_network()
+    violations = 0
     fitness = 0
     for pipe in network.get_pipes():
         fitness -= pipe.get_length()*pipe.get_pipe_diameter()
@@ -20,7 +21,8 @@ def fitness_function(ga_instance, solution, solution_idx) -> float:
         if isinstance(node, HydroReservoir):
             continue
         if not node.has_enough_pressure():
-            fitness -= abs(250*abs(node.get_actual_pressure() - node.get_pressure_demand()))
+            violations += abs(node.get_actual_pressure() - node.get_pressure_demand())
+    fitness -= abs(fitness*0.005*violations)
     if config.print_solution:
         print_solution(solution_list, fitness)
     return fitness

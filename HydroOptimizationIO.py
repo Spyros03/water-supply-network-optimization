@@ -37,9 +37,13 @@ def hydro_read_csv():
 def hydro_write_csv(network):
     """Returns the data in a csv file."""
     diameters = ['optimized_diameters']
+    pipe_ids = ['pipe_id']
+    for i in range(len(common.pipes)):
+        pipe_ids.append(str(i))
     for pipe in network.get_pipes():
         diameters.append(pipe.get_pipe_diameter())
     csvfilename = dialog.askopenfilename(defaultextension='.csv')
     with open(csvfilename, 'w', encoding='utf-8') as csvfile:
         csvwriter = csv.writer(csvfile, delimiter=',')
+        csvwriter.writerow(pipe_ids)
         csvwriter.writerow(diameters)
