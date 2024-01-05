@@ -93,9 +93,11 @@ def epanet_solver(network):
             raise hn.HydroError("The network is invalid.")
         os.chdir('..')
     else:
-        ret = os.system('./epanet_linux/runepanet.sh network_file.inp report.rpt output.out')
+        os.chdir('epanet_linux')
+        ret = os.system('./runepanet.sh ../network_file.inp ../report.rpt ../output.out')
         if (ret >> 8) == 100:
             raise hn.HydroError("The network is invalid.")
+        os.chdir('..')
     parse_out_file(network)
 
 
