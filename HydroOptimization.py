@@ -35,6 +35,7 @@ def print_solution(solution, fitness):
 
 
 def is_restriction_satisfied(network) -> bool:
+    """Checks if all the node pressure demands are satisfied and returns a boolean value."""
     for node in network.get_nodes():
         if isinstance(node, HydroReservoir):
             continue
