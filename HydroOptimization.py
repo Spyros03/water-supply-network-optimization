@@ -36,7 +36,7 @@ def print_solution(solution, fitness):
 
 def is_restriction_satisfied(network) -> bool:
     for node in network.get_nodes():
-        if isinstance(nodes, HydroReservoir):
+        if isinstance(node, HydroReservoir):
             continue
         if not node.has_enough_pressure():
             return False
