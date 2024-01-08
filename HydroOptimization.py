@@ -21,7 +21,7 @@ def fitness_function(ga_instance, solution, solution_idx) -> float:
         if isinstance(node, HydroReservoir):
             continue
         if not node.has_enough_pressure():
-            violations += 5000*abs(node.get_actual_pressure() - node.get_pressure_demand())
+            violations += 1000*abs(node.get_actual_pressure() - node.get_pressure_demand())
     fitness -= abs(fitness*violations)
     if config.print_solution:
         print_solution(solution_list, fitness)

@@ -39,7 +39,7 @@ def hydro_write_csv(network):
     diameters = ['optimized_diameters']
     pipe_ids = ['pipe_id']
     for i in range(len(common.pipes)):
-        pipe_ids.append(str(i))
+        pipe_ids.append(str(i+1))
     for pipe in network.get_pipes():
         diameters.append(pipe.get_pipe_diameter())
     csvfilename = dialog.askopenfilename(defaultextension='.csv')
