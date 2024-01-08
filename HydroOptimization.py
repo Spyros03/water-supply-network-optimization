@@ -60,8 +60,8 @@ def optimize():
     optimal_network.set_pipe_diameters(optimal_solution)
     optimal_network.solve_network()
     failed_nodes = get_not_satisfied_restrictions(optimal_network)
-    if not failed_nodes:  # Checks if the restrictions are satisfied.
-        print("Warning!! some node pressure demand is not satisfied at nodes" + failed_nodes.__str__())
+    if failed_nodes:  # Checks if the restrictions are satisfied.
+        print("Warning!! some node pressure demand is not satisfied at nodes " + failed_nodes.__str__())
     hydro_write_csv(optimal_network)
 
 
