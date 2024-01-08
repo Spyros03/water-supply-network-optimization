@@ -21,8 +21,8 @@ def fitness_function(ga_instance, solution, solution_idx) -> float:
         if isinstance(node, HydroReservoir):
             continue
         if not node.has_enough_pressure():
-            violations += abs(node.get_actual_pressure() - node.get_pressure_demand())
-    fitness -= abs(fitness*0.1*violations)
+            violations += 5000*abs(node.get_actual_pressure() - node.get_pressure_demand())
+    fitness -= abs(fitness*violations)
     if config.print_solution:
         print_solution(solution_list, fitness)
     return fitness
@@ -34,14 +34,15 @@ def print_solution(solution, fitness):
     print('local time:', time.localtime().tm_hour, ':', time.localtime().tm_min, ':', time.localtime().tm_sec)
 
 
-def is_restriction_satisfied(network) -> bool:
+def get_not_satisfied_restrictions(network) -> list[int]:
     """Checks if all the node pressure demands are satisfied and returns a boolean value."""
+    failed_nodes = []
     for node in network.get_nodes():
         if isinstance(node, HydroReservoir):
             continue
         if not node.has_enough_pressure():
-            return False
-    return True
+            failed_nodes.append(node.get_id())
+    return failed_nodes
 
 
 def optimize():
@@ -56,10 +57,11 @@ def optimize():
     print('Optimal solution fitness:', optimal_solution_fitness)
     optimization.plot_fitness()
     optimal_network = HydroNetwork(common.nodes, common.pipes)
-    if not is_restriction_satisfied(optimal_network):
-        print("Warning!! some node pressure demand is not satisfied!")
     optimal_network.set_pipe_diameters(optimal_solution)
     optimal_network.solve_network()
+    failed_nodes = get_not_satisfied_restrictions(optimal_network)
+    if not failed_nodes:  # Checks if the restrictions are satisfied.
+        print("Warning!! some node pressure demand is not satisfied at nodes" + failed_nodes.__str__())
     hydro_write_csv(optimal_network)
 
 
