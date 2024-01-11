@@ -8,7 +8,7 @@ from HydroNetwork import HydroJunction, HydroPipe, HydroReservoir
 import common
 import csv
 
-valid_labels = ['junction_id', 'junction_elevation', 'junction_demand', 'junction_pressure_demand', 'pipe_id',
+valid_labels = ['junction_id', 'junction_elevation', 'junction_demand', 'junction_head_demand', 'pipe_id',
                 'pipe_st_node', 'pipe_end_node', 'pipe_length', 'reservoir_id', 'reservoir_head']
 
 

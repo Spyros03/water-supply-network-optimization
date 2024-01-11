@@ -39,17 +39,17 @@ class HydroReservoir(HydroNode):
 
 class HydroJunction(HydroNode):
     """A class that describes a junction of a water supply network in correlation with EPANET_2.3 Junction struct."""
-    def __init__(self, idd: int, elevation: float, demand: float, pressure_demand: float = 0):
+    def __init__(self, idd: int, elevation: float, demand: float, head_demand: float = 0):
         super().__init__(idd)
         self.elevation = elevation
         self.demand = demand
-        self.pressure_demand = pressure_demand
-        self.actual_pressure = None
+        self.head_demand = head_demand
+        self.actual_head = None
 
-    def has_enough_pressure(self) -> bool:
-        if self.actual_pressure is None:
-            raise HydroError('Actual pressure is has not been set yet.')
-        return self.actual_pressure >= self.pressure_demand
+    def has_enough_head(self) -> bool:
+        if self.actual_head is None:
+            raise HydroError('Actual head is has not been set yet.')
+        return self.actual_head >= self.head_demand
 
     def get_elevation(self) -> float:
         return self.elevation
@@ -57,19 +57,19 @@ class HydroJunction(HydroNode):
     def get_demand(self) -> float:
         return self.demand
 
-    def get_pressure_demand(self) -> float:
-        return self.pressure_demand
+    def get_head_demand(self) -> float:
+        return self.head_demand
 
-    def get_actual_pressure(self) -> float:
-        if self.actual_pressure is None:
-            raise HydroError("Pressure has not been set yet.")
-        return self.actual_pressure
+    def get_actual_head(self) -> float:
+        if self.actual_head is None:
+            raise HydroError("Head has not been set yet.")
+        return self.actual_head
 
-    def set_actual_pressure(self, actual_pressure):
-        self.actual_pressure = actual_pressure
+    def set_actual_head(self, actual_head):
+        self.actual_head = actual_head
 
     def copy(self):
-        return HydroJunction(self.idd, self.elevation, self.demand, self.pressure_demand)
+        return HydroJunction(self.idd, self.elevation, self.demand, self.head_demand)
 
 
 class HydroPipe:

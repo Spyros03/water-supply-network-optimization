@@ -76,7 +76,7 @@ def parse_out_file(network):
     for index, node in enumerate(network.get_nodes()):
         if isinstance(node, hn.HydroReservoir):
             continue
-        node.set_actual_pressure(output_data[n_nodes + index])
+        node.set_actual_head(output_data[n_nodes + index])
     for index, pipe in enumerate(network.get_pipes()):
         pipe.set_discharge(output_data[4*n_nodes + index])
         pipe.set_velocity(output_data[4*n_nodes + n_links + index])
@@ -111,6 +111,6 @@ if __name__ == '__main__':
     for node in network.get_nodes():
         if isinstance(node, hn.HydroReservoir):
             continue
-        print(node.get_actual_pressure())
+        print(node.get_actual_head())
     for pipe in network.get_pipes():
         print(pipe.discharge, pipe.velocity, pipe.headloss)
